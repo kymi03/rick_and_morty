@@ -22,7 +22,7 @@ export default function Card(props) {
 
                <div className={style.containerText}>
                
-               <Link to={`/detail/${id}`}>
+               <Link to={`/detail/${props.id}`}>
                   <h2 className={style.texto}>{props.name}</h2>
                </Link>
                  

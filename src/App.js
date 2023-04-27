@@ -4,10 +4,10 @@ import Nav from './components/nav/Nav';
 import Cards from './components/tarjetas/Cards.jsx';
 import { useState } from 'react';
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import About from './components/about/About';
 import Detail from './components/detail/Detail';
-
+import Form from './components/form/Form';
 
 
 const example = {
@@ -27,6 +27,8 @@ function App() {
 
 
     const [characters, setCharacters] = useState([]);
+
+    const { pathname} = useLocation();
 
     // function onSearch() {
     //     setCharacters([
@@ -76,7 +78,9 @@ function App() {
 
                 <Route path='/about' element={<About/>} />
 
-                <Route path='/detail:id' element={<Detail/>} />
+                <Route path='/detail/:id' element={<Detail/>} />
+
+                <Route path='/' element={<Form/>}/>
 
 
 
