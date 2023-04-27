@@ -4,7 +4,7 @@ const Detail = () => {
     const { id } = useParams()
     return (
         <div>
-            <h1>Detail</h1>
+            <h1>Me</h1>
         </div>
     )
 }
