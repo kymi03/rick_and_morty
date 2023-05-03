@@ -2,12 +2,13 @@ import './App.css';
 import SearchBar from './components/busqueda/SearchBar';
 import Nav from './components/nav/Nav';
 import Cards from './components/tarjetas/Cards.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import About from './components/about/About';
 import Detail from './components/detail/Detail';
 import Form from './components/form/Form';
+import Favorites from './components/favorites/Favorites';
 
 
 const example = {
@@ -28,14 +29,14 @@ function App() {
 
     const [characters, setCharacters] = useState([]);
 
-    const { pathname} = useLocation();
+    const [access, setAccess] = useState(false);
 
-    // function onSearch() {
-    //     setCharacters([
-    //         ...characters,
-    //         example
-    //     ])
-    // }
+    const EMAIL = 'kimysabela03@gmail.com';
+    const PASSWORD = 'issabella12';
+
+    const { pathname } = useLocation();
+
+    const navigate = useNavigate();
 
     function onSearch(id) {
 
@@ -64,32 +65,37 @@ function App() {
         setCharacters(filteredCharacters);
     }
 
-
+    
+    const login = (userData) => {
+        if (userData.password === PASSWORD && userData.email === EMAIL) {
+            setAccess(true);
+            navigate('/home');
+        }
+    }
+    
+    
+    useEffect(() => {
+        !access && navigate('/');
+    }, [access]);
 
 
 
     return (
         <div className='App'>
-            <Nav onSearch={onSearch} />
+
+            {pathname !== '/' && <Nav onSearch={onSearch} />}
 
             <Routes>
 
-                <Route path='/home' element={<Cards  characters={characters} onClose={onClose}/>} />
+                <Route path='/' element={<Form  login= { login }/>} />
 
-                <Route path='/about' element={<About/>} />
+                <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} />
 
-                <Route path='/detail/:id' element={<Detail/>} />
+                <Route path='/about' element={<About />} />
 
-                <Route path='/' element={<Form/>}/>
+                <Route path='/detail/:id' element={<Detail />} />
 
-
-
-                
-
-
-
-
-
+                <Route path='/favorites' element={<Favorites />}/>
             </Routes>
 
 

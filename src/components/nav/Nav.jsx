@@ -31,6 +31,12 @@ const Nav = (props) => {
 
         </Link>
         
+        <Link to='/favorites' >
+        
+            <button>Favorites</button>
+
+        </Link>
+        
         
 
         
